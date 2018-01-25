@@ -1,4 +1,5 @@
+匿名で今すぐ
 <%= form_for @conn, "/", [as: :box], fn f -> %>
   <input type="text" name="name">
-  <input type="submit" value="箱を作る">
+  <input type="submit" value="の箱を作る">
 <% end %>

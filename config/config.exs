@@ -9,6 +9,9 @@ use Mix.Config
 config :koubo,
   ecto_repos: [Koubo.Repo]
 
+config :koubo,
+  site_name: "酵母スペース"
+
 # Configures the endpoint
 config :koubo, Koubo.Web.Endpoint,
   url: [host: "localhost"],
