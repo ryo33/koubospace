@@ -1,4 +1,4 @@
-<p><%= @name %>の箱</p>
+<h2><p><%= @name %>の箱</p></h2>
 <%= form_for @conn, "/#{@name}/ask", [as: :box], fn f -> %>
   <input type="text" name="item">
   <input type="submit" value="を恵んでくれ">
