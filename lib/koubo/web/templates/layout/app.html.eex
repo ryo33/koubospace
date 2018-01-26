@@ -10,15 +10,15 @@
     <% site_name = Application.get_env(:koubo, :site_name) %>
     <% title = @view_module.title(@view_template, assigns) %>
     <% description = @view_module.description(@view_template, assigns) %>
-    <% url = url(@conn) %>
     <title><%= title %></title>
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="<%= site_name %>" />
-    <meta property="og:url" content="<%= url %>" />
+    <meta property="og:url" content="<%= url(@conn) <> @conn.request_path %>" />
     <meta property="og:title" content="<%= title %>" />
     <meta property="og:description" content="<%= description %>">
-    <meta property="og:image" content="<%= url %><%= static_path(@conn, "/images/koubo.png") %>" />
+    <meta property="og:image" content="<%= static_url(@conn, "/images/koubo.png") %>" />
     <meta name="twitter:card" content="summary" />
+    <link rel="canonical" href="<%= url(@conn) <> @conn.request_path %>">
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   </head>
@@ -30,10 +30,6 @@
         <img src="<%= static_path(@conn, "/images/koubo.svg") %>" width="30" height="30" alt="brand">
         酵母スペース
       </a>
-      <%= form_for @conn, "/", [as: :box, class: "form-inline"], fn _ -> %>
-        <input name="name" class="form-control mr-sm-2" type="text" placeholder="箱の名前" aria-label="箱の名前">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">移動</button>
-      <% end %>
     </div>
     </nav>
     <div class="container">

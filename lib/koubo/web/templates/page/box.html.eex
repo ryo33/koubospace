@@ -1,4 +1,12 @@
-<h1 class="h2"><%= @name %>の箱</h1>
+<% query = %{text: "#{@name}の箱です。", hashtags: "酵母スペース,koubospace"} %>
+<h1 class="h2"><%= @name %>の箱
+  <span class="ml-3 align-middle">
+    <a class="twitter-share-button"
+       href="https://twitter.com/intent/tweet?<%= URI.encode_query(query) %>"
+       data-size="large">
+       Tweet</a>
+  </span>
+</h1>
 <table>
   <tbody>
     <%= for item <- @items do %>
@@ -26,3 +34,19 @@
   <input name="item" class="form-control form-control-sm mr-2" type="text" aria-label="恵んで欲しい物の名前">
   <button class="btn btn-sm btn-primary" type="submit">を恵んでくれ</button>
 <% end %>
+<script>window.twttr = (function(d, s, id) {
+var js, fjs = d.getElementsByTagName(s)[0],
+t = window.twttr || {};
+if (d.getElementById(id)) return t;
+js = d.createElement(s);
+js.id = id;
+js.src = "https://platform.twitter.com/widgets.js";
+fjs.parentNode.insertBefore(js, fjs);
+
+t._e = [];
+t.ready = function(f) {
+  t._e.push(f);
+};
+
+return t;
+}(document, "script", "twitter-wjs"));</script>

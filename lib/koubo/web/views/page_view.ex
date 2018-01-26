@@ -12,14 +12,4 @@ defmodule Koubo.Web.PageView do
   def description(_, _), do: """
   匿名で箱を作ろう！
   """
-
-  def url(conn) do
-    scheme = case conn.scheme do
-      :http -> "http"
-      :https -> "https"
-    end
-    host = conn.host
-    path = conn.request_path
-    "#{scheme}://#{host}#{path}"
-  end
 end
