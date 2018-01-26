@@ -6,14 +6,7 @@ defmodule Koubo.Web.PageController do
   end
 
   def box(conn, %{"name" => name}) do
-    import Ecto.Query
-    alias Koubo.Box.Item
-    query = from i in Item,
-      where: i.box == ^name,
-      group_by: i.item,
-      order_by: [desc: count(i.id)],
-      select: {i.item, count(i.id)}
-    items = Koubo.Repo.all(query)
+    items = Koubo.Box.get_items(name)
     render conn, "box.html", name: name, items: items
   end
 
@@ -22,22 +15,12 @@ defmodule Koubo.Web.PageController do
   end
 
   def ask(conn, %{"name" => box, "item" => item}) do
-    import Ecto.Query
-    alias Koubo.Box.Item
-    query = from i in Item,
-      where: i.box == ^box,
-      where: i.item == ^item
-    if Koubo.Repo.aggregate(query, :count, :id) == 0 do
-      changeset = Item.changeset(%Item{}, %{box: box, item: item})
-      Koubo.Repo.insert!(changeset)
-    end
+    Koubo.Box.ask(box, item)
     redirect conn, to: "/#{box}"
   end
 
   def give(conn, %{"name" => box, "item" => item}) do
-    alias Koubo.Box.Item
-    changeset = Item.changeset(%Item{}, %{box: box, item: item})
-    Koubo.Repo.insert!(changeset)
+    Koubo.Box.give(box, item)
     redirect conn, to: "/#{box}"
   end
 end

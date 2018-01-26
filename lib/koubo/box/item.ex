@@ -3,9 +3,9 @@ defmodule Koubo.Box.Item do
   import Ecto.Changeset
   alias Koubo.Box.Item
 
-
   schema "box_items" do
     field :box, :string
+    field :count, :integer
     field :item, :string
 
     timestamps()
@@ -14,7 +14,7 @@ defmodule Koubo.Box.Item do
   @doc false
   def changeset(%Item{} = item, attrs) do
     item
-    |> cast(attrs, [:box, :item])
-    |> validate_required([:box, :item])
+    |> cast(attrs, [:box, :item, :count])
+    |> validate_required([:box, :item, :count])
   end
 end
