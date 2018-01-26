@@ -16,7 +16,7 @@ defmodule Koubo.Box do
       where: i.item == ^item
     if Koubo.Repo.aggregate(query, :count, :id) == 0 do
       changeset = Item.changeset(%Item{}, %{box: box, item: item, count: 0})
-      Koubo.Repo.insert!(changeset)
+      Koubo.Repo.insert(changeset)
     end
   end
 

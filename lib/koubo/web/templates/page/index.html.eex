@@ -1,5 +1,7 @@
-匿名で今すぐ
-<%= form_for @conn, "/", [as: :box], fn _ -> %>
-  <input type="text" name="name">
-  <input type="submit" value="の箱を作る">
+<h1 class="display-4">酵母スペース</h1>
+<p class="lead">匿名で今すぐ箱を作ろう！</p>
+<%= form_for @conn, "/", [as: :box, class: "form-inline"], fn _ -> %>
+  <input id="name" name="name" class="form-control form-control-lg mr-sm-2" type="text" aria-label="箱の名前">
+  <button class="btn btn-lg btn-primary" type="submit">の箱を作る</button>
 <% end %>
+<p><small>既に存在する箱も入力できます。</small></p>

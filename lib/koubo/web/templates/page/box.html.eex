@@ -1,14 +1,28 @@
-<h2><p><%= @name %>の箱</p></h2>
-<%= form_for @conn, "/#{@name}/ask", [as: :box], fn _ -> %>
-  <input type="text" name="item">
-  <input type="submit" value="を恵んでくれ">
-<% end %>
-
-<%= for item <- @items do %>
-  <%= form_for @conn, "/#{@name}/give", [as: :box], fn _ -> %>
-    <%= item.item %>
-    <input type="hidden" name="item" value="<%= item.item %>">
-    <input type="submit" value="を恵む">
-    現在: <%= item.count %>個
-  <% end %>
+<h1 class="h2"><%= @name %>の箱</h1>
+<table>
+  <tbody>
+    <%= for item <- @items do %>
+      <tr>
+        <td>
+          <span class="mr-2">
+            <%= item.item %>
+          </span>
+        </td>
+        <td>
+          <%= form_for @conn, "/#{@name}/give", [as: :box, class: "form-inline"], fn _ -> %>
+            <input type="hidden" name="item" value="<%= item.item %>">
+            <button class="btn btn-outline-primary btn-sm mr-2" type="submit">を恵む</button>
+          <% end %>
+        </td>
+        <td>
+          現在: <%= item.count %>個
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<hr class="my-4">
+<%= form_for @conn, "/#{@name}/ask", [as: :box, class: "form-inline"], fn _ -> %>
+  <input name="item" class="form-control form-control-sm mr-2" type="text" aria-label="恵んで欲しい物の名前">
+  <button class="btn btn-sm btn-primary" type="submit">を恵んでくれ</button>
 <% end %>
