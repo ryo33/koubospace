@@ -1,8 +1,6 @@
 defmodule Koubo.Box do
   import Ecto.Query
   alias Koubo.Box.Item
-  alias Koubo.Box.ItemLog
-  alias Ecto.Multi
 
   def get_items(box) do
     query = from i in Item,
@@ -23,14 +21,10 @@ defmodule Koubo.Box do
   end
 
   def give(box, item) do
-    changeset = ItemLog.changeset(%ItemLog{}, %{box: box, item: item})
-    item_query = from i in Item,
+    query = from i in Item,
       where: i.box == ^box,
       where: i.item == ^item,
       update: [inc: [count: 1]]
-    multi = Multi.new
-            |> Multi.insert(:log, changeset)
-            |> Multi.update_all(:increment, item_query, [])
-    {:ok, _} = Koubo.Repo.transaction(multi)
+    Koubo.Repo.update_all(query, [])
   end
 end
