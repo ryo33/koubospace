@@ -1,10 +1,16 @@
 <% query = %{text: "#{@name}の箱です。", hashtags: "酵母スペース,koubospace"} %>
 <h1 class="h2"><%= @name %>の箱
+  <a class="ml-3"
+     href="https://mastoshare.net/post.php?<%= URI.encode_query(%{text: query.text}) %>"
+     onclick="window.open(this.href, '', 'width=500,height=400'); return false;">
+    <img src="https://mastoshare.net/img/toot.svg" width="75" height="20">
+  </a>
   <span class="ml-3 align-middle">
     <a class="twitter-share-button"
        href="https://twitter.com/intent/tweet?<%= URI.encode_query(query) %>"
        data-size="large">
-       Tweet</a>
+       Tweet
+    </a>
   </span>
 </h1>
 <table>
